@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 
 export default function Button(props) {
-  const className = [props.ClassName];
+  const className = [props.className];
   if (props.isPrimary) className.push('btn-primary');
+  if (props.isLight) className.push('btn-light');
   if (props.isLarge) className.push('btn-lg');
   if (props.isSmall) className.push('btn-sm');
   if (props.isBlock) className.push('btn-block');
@@ -14,13 +15,13 @@ export default function Button(props) {
     if (props.onClick) props.onClick();
   };
 
-  if (props.isDisable || props.isLoading) {
-    if (props.isDisable) className.push('disabled');
+  if (props.isDisabled || props.isLoading) {
+    if (props.isDisabled) className.push('disabled');
     return (
       <span className={className.join(' ')} style={props.style}>
         {props.isLoading ? (
           <>
-            <span className="spinner-border spinner-bordr-sm mx-5"></span>
+            <span className="spinner-border spinner-border-sm mx-5"></span>
             <span className="sr-only">Loading...</span>
           </>
         ) : (
@@ -45,6 +46,7 @@ export default function Button(props) {
       );
     }
   }
+
   return (
     <button className={className.join(' ')} style={props.style} onClick={onClick}>
       {props.children}
@@ -58,8 +60,10 @@ Button.propTypes = {
   href: propTypes.string,
   target: propTypes.string,
   className: propTypes.string,
+  isPrimary: propTypes.bool,
+  isLight: propTypes.bool,
   isExternal: propTypes.bool,
-  isDisable: propTypes.bool,
+  isDisabled: propTypes.bool,
   isLoading: propTypes.bool,
   isSmall: propTypes.bool,
   isLarge: propTypes.bool,
